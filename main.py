@@ -3,6 +3,10 @@
 #  Use list of augs to search, return true or false
 # Compare aug_list to parse
 # Return all augs not found in parse
+import os
+import glob
+
+local_dir = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest"
 
 augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Cazic's Command", "Cazic's Order", \
        "Cazic's Wish", "Cazic's Word", "Stone of Dragons", "Stone of Drakes", "Stone of Racnars",\
@@ -12,7 +16,14 @@ augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Ca
 
 filename = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\Apoth_inv.txt"
 
-file = open(filename, "r")
+inv_files = [os.path.basename(x) for x in glob.glob(
+    "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\*_inv.txt")]
 
-if "Eye of the Sleeper" in file.read():
-    print("true")
+# file = open(filename, "r")
+#
+# if "Eye of the Sleeper" in file.read():
+#     print("true")
+#
+#
+#
+# for i in augs:
