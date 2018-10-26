@@ -6,7 +6,7 @@
 import os
 import glob
 
-local_dir = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest"
+local_dir = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\"
 
 augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Cazic's Command", "Cazic's Order", \
        "Cazic's Wish", "Cazic's Word", "Stone of Dragons", "Stone of Drakes", "Stone of Racnars",\
@@ -14,10 +14,20 @@ augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Ca
        "Aviak Eye", "Kodiak Eye", "Kodiak Fur Hair", "Kodiak Claw", "Shark Eye", "Bloodthirsty Shark Skin", \
        "Shark Tooth"
 
-filename = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\Apoth_inv.txt"
-
+# Sets inv_files to be a list of filename.txt
 inv_files = [os.path.basename(x) for x in glob.glob(
     "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\*_inv.txt")]
+
+
+# Define main comparison functionality
+def compare(x):
+    print(x)
+
+
+# For loop that calls a function for each file
+for i in inv_files:
+    compare(i)
+
 
 # file = open(filename, "r")
 #
