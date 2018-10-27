@@ -21,12 +21,16 @@ inv_files = [os.path.basename(x) for x in glob.glob(
 
 # Define main comparison functionality
 def compare(x):
-    print(x)
+    pass
 
 
 # For loop that calls a function for each file
-for i in inv_files:
-    compare(i)
+for inv_file in inv_files:
+    print(inv_file)
+    file = open(local_dir + inv_file, "r")
+    for aug in augs:
+        if aug not in file.read():
+            print(aug + "missing")
 
 
 # file = open(filename, "r")
