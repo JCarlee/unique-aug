@@ -18,19 +18,20 @@ augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Ca
 inv_files = [os.path.basename(x) for x in glob.glob(
     "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\*_inv.txt")]
 
-
-# Define main comparison functionality
-def compare(x):
-    pass
-
-
 # For loop that calls a function for each file
 for inv_file in inv_files:
-    print(inv_file)
+    print('\n' + inv_file.replace('_inv.txt', ''))
     file = open(local_dir + inv_file, "r")
+    file_string = file.read()
     for aug in augs:
-        if aug not in file.read():
-            print(aug + "missing")
+        if aug not in file_string:
+            print(aug)
+    file.close()
+
+
+# Define main comparison functionality
+# def compare(x):
+#     pass
 
 
 # file = open(filename, "r")
