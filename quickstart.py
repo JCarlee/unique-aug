@@ -4,11 +4,11 @@ from httplib2 import Http
 from oauth2client import file, client, tools
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-SAMPLE_RANGE_NAME = 'Class Data!A2:E'
+SAMPLE_SPREADSHEET_ID = '1RNPpdQKnt6Y9FTbYA6B7yXQzqXarkxLt-SYnzazz0gY'
+SAMPLE_RANGE_NAME = 'Sheet1!A2:E2'
 
 
 def main():
@@ -17,16 +17,26 @@ def main():
     """
     store = file.Storage('token.json')
     creds = store.get()
+
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
         creds = tools.run_flow(flow, store)
     service = build('sheets', 'v4', http=creds.authorize(Http()))
 
     # Call the Sheets API
-    SPREADSHEET_ID = '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
-    RANGE_NAME = 'Class Data!A2:E'
-    result = service.spreadsheets().values().get(spreadsheetId=SPREADSHEET_ID,
-                                                range=RANGE_NAME).execute()
+    spreadsheet_id = '1RNPpdQKnt6Y9FTbYA6B7yXQzqXarkxLt-SYnzazz0gY'
+    range_name = 'Sheet1!E2:E2'
+    values = [
+        [
+            "TRUE"
+        ],
+        # Additional rows ...
+    ]
+    body = {
+        'values': values
+    }
+    result = service.spreadsheets().values().update(spreadsheetId=spreadsheet_id, range=range_name,
+                                                    valueInputOption='USER_ENTERED', body=body).execute()
     values = result.get('values', [])
 
     if not values:
@@ -35,7 +45,7 @@ def main():
         print('Name, Major:')
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s' % (row[0], row[4]))
+            print('%s' % (row[0]))
 
 
 if __name__ == '__main__':
