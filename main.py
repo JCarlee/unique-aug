@@ -5,6 +5,15 @@
 # Return all augs not found in parse
 import os
 import glob
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+credentials = ServiceAccountCredentials.from_json_keyfile_name('THF Augs-442548b249e7.json', scope)
+gc = gspread.authorize(credentials)
+wks = gc.open('THFInformation').worksheet("AugList")
+
+# wks.update_acell('B1', 'Value')
 
 local_dir = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\"
 
@@ -18,27 +27,22 @@ augs = "Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "Ca
 inv_files = [os.path.basename(x) for x in glob.glob(
     "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\*_inv.txt")]
 
+char_names = ['Apoth', 'Vwar', 'Takn', 'Guvian', 'Crit', 'Calleagh', 'Topson', 'Euvian']
+col_list = ['D', 'E', 'F', 'G', 'H', 'I', 'J' 'K']
+
 # For loop that calls a function for each file
-for inv_file in inv_files:
-    print('\n' + inv_file.replace('_inv.txt', ''))
+
+for inv_file, no in zip(inv_files, range(6, 14)):
+    # print('\n' + inv_file.replace('_inv.txt', ''))
     file = open(local_dir + inv_file, "r")
     file_string = file.read()
-    for aug in augs:
+    cell_list = wks.range('B' + str(no) + ':W' + str(no))
+    for aug, cell in zip(augs, cell_list):
         if aug not in file_string:
-            print(aug)
+            #print("FALSE")
+            cell.value = 'FALSE'
+        else:
+            #print("TRUE")
+            cell.value = 'TRUE'
+    wks.update_cells(cell_list)
     file.close()
-
-
-# Define main comparison functionality
-# def compare(x):
-#     pass
-
-
-# file = open(filename, "r")
-#
-# if "Eye of the Sleeper" in file.read():
-#     print("true")
-#
-#
-#
-# for i in augs:
