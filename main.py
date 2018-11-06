@@ -6,7 +6,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('THF Augs-442548b249e7.json', scope)
 gc = gspread.authorize(credentials)
-wks = gc.open('THFInformation').worksheet("AugList")
+aug_sheet = gc.open('THFInformation').worksheet("AugList")
+info_sheet = gc.open('THFInformation').worksheet("Python")
 
 # CHANGE based on your directory storing exported files
 local_dir = "C:\\Users\\jcarl\\AppData\\Local\\VirtualStore\\Program Files (x86)\\Everquest\\"
@@ -21,19 +22,19 @@ augs = ["Kerafyrm's Final Word", "Eye of the Sleeper", "Xegony's Final Word", "C
 # Sets inv_files to be a list of filename.txt
 inv_files = [os.path.basename(x) for x in glob.glob(local_dir + "*_inv.txt")]
 
-char_names = ['Apoth', 'Vwar', 'Takn', 'Guvian', 'Crit', 'Calleagh', 'Topson', 'Euvian']
-col_list = ['D', 'E', 'F', 'G', 'H', 'I', 'J' 'K']  # This list should populate based on spreadsheet
+aug_start_col = info_sheet.acell('A2').value
+aug_end_col = info_sheet.acell('B2').value
+char_row_start = info_sheet.acell('C2').value
+char_row_end = info_sheet.acell('D2').value
 
-
-for inv_file, no in zip(inv_files, range(6, 14)):
-    # print('\n' + inv_file.replace('_inv.txt', ''))
-    file = open(local_dir + inv_file, "r")
-    file_string = file.read()
-    cell_list = wks.range('B' + str(no) + ':W' + str(no))
+for inv_file, column in zip(inv_files, range(char_row_start, (char_row_end+1))):
+    file = open(local_dir + inv_file, "r")  # Open inv file, read
+    file_string = file.read()  # Save inv file contents to a temporary string
+    cell_list = aug_sheet.range(aug_start_col + str(column) + ':' + aug_end_col + str(column))
     for aug, cell in zip(augs, cell_list):
         if aug not in file_string:
             cell.value = 'FALSE'
         else:
             cell.value = 'TRUE'
-    wks.update_cells(cell_list)
+    aug_sheet.update_cells(cell_list)
     file.close()
