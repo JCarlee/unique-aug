@@ -17,7 +17,6 @@ Please feel free to email me at JCarlee@gmail.com with suggestions or ideas.
 
 ```
 pip install gspread
-pip install oauth2client
 ```
 
 ## Google Sheets Personal Library Setup
