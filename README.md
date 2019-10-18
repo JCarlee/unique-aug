@@ -31,4 +31,4 @@ To be named `THF Augs-442548b249e7.json`
 
 ## Author
 
-* **John Carlee** - JCarlee@gmail.com
+* **John Carlee** - JCarlee (at) gmail.com
