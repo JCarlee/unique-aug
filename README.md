@@ -5,9 +5,6 @@ Script to identify missing unique augments for numerous charecters in Everquest
 Playing on the emulated Everquest server, The Hidden Forest, I found myself having trouble managing so many unique augments across multiple characters.
 I wanted a way to cleanly visualize which characters had these augs without manually going through each inventory.
 Therefore, I decided to create a script to scrape all augs out of inventory dump files, cross reference the augs with a list in Google sheets and finally organize.
-
-I consider myself a novice Python developer so any and all criticism to the approach, code, and documentation is welcome.
-Please feel free to [email me.](mailto:JCarlee@gmail.com) 
  
 ## Dependencies
 * Python 3
@@ -31,4 +28,4 @@ To be named `THF Augs-442548b249e7.json`
 
 ## Author
 
-* **John Carlee** - JCarlee (at) gmail.com
+* **John Carlee** - [Email me](mailto:JCarlee@gmail.com)
