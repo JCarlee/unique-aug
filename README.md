@@ -7,7 +7,7 @@ I wanted a way to cleanly visualize which characters had these augs without manu
 Therefore, I decided to create a script to scrape all augs out of inventory dump files, cross reference the augs with a list in Google sheets and finally organize.
 
 I consider myself a novice Python developer so any and all criticism to the approach, code, and documentation is welcome.
-Please feel free to email me at JCarlee@gmail.com with suggestions or ideas.
+Please feel free to email me at JCarlee (at) gmail.com
  
 ## Dependencies
 * Python 3
